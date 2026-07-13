@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Resume — Joseph Rojas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gb-darkest: #3B3050;
+    --gb-dark:    #61508B;
+    --gb-mid:     #EAB295;
+    --gb-light:   #DDE9F7;
+
+    --pastel-pink:  #F9CDD8;
+    --pastel-mint:  #C9EBD6;
+    --pastel-sky:   #C8E0F6;
+    --pastel-peach: #FBDCBB;
+    --pastel-lilac: #DDD1F3;
+    --pastel-lemon: #F8EFC0;
+
+    --bg:       var(--gb-mid);
+    --border:   var(--gb-darkest);
+    --text:     var(--gb-darkest);
+    --muted:    var(--gb-dark);
+    --mono:     'Press Start 2P', monospace;
+    --sans:     'VT323', monospace;
+
+    --page-w: 8.5in;
+    --page-h: 11in;
+    --page-pad-x: 0.55in;
+    --page-pad-y: 0.5in;
+    --zoom: 1;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(59,48,80,0.07) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(90deg, rgba(59,48,80,0.06) 0 1px, transparent 1px 4px);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 1.125rem;
+    line-height: 1.35;
+  }
+
+  ::selection { background: var(--gb-darkest); color: var(--gb-light); }
+
+  @keyframes gb-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 5%;
+    height: 3.75rem;
+    background: var(--gb-light);
+    border-bottom: 4px solid var(--gb-darkest);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--gb-darkest);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+
+  .nav-logo::before { content: '◀ '; font-size: 0.5625rem; }
+  .nav-logo:hover { color: var(--gb-dark); }
+
+  .nav-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .zoom-toolbar {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 3px solid var(--gb-darkest);
+    background: var(--gb-light);
+    box-shadow: 4px 4px 0 var(--gb-dark);
+    padding: 4px;
+  }
+
+  .zoom-btn {
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    color: var(--gb-darkest);
+    background: var(--gb-light);
+    border: none;
+    padding: 10px 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+
+  .zoom-btn:hover { background: var(--pastel-sky); }
+  .zoom-btn:active { transform: translate(1px, 1px); }
+
+  .zoom-label {
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    color: var(--gb-dark);
+    padding: 0 8px;
+    min-width: 4.25rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .page-size-badge {
+    font-family: var(--mono);
+    font-size: 0.4375rem;
+    color: var(--gb-dark);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 8px;
+    border: 2px solid var(--gb-darkest);
+    background: var(--pastel-lemon);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 12px;
+    background: var(--gb-darkest);
+    color: var(--gb-light);
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: 3px 3px 0 var(--gb-dark);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--gb-dark);
+  }
+
+  /* ── LETTER PAGE VIEWER ── */
+  .resume-viewport {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 16px 64px;
+    overflow-x: auto;
+  }
+
+  .resume-page {
+    width: var(--page-w);
+    min-height: var(--page-h);
+    background: var(--gb-light);
+    border: 4px solid var(--gb-darkest);
+    box-shadow:
+      inset 0 0 0 3px var(--gb-light),
+      inset 0 0 0 5px var(--gb-darkest),
+      10px 10px 0 var(--gb-dark);
+    padding: var(--page-pad-y) var(--page-pad-x);
+    transform: scale(var(--zoom));
+    transform-origin: top center;
+    flex-shrink: 0;
+  }
+
+  .page-ruler {
+    font-family: var(--mono);
+    font-size: 0.4375rem;
+    color: var(--gb-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-top: calc((var(--zoom) - 1) * var(--page-h) + 14px);
+    opacity: 0.85;
+  }
+
+  /* ── RESUME HEADER ── */
+  .resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+    border-bottom: 3px solid var(--gb-darkest);
+  }
+
+  .resume-name {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    line-height: 1.35;
+    color: var(--gb-darkest);
+    text-shadow: 2px 2px 0 rgba(221,233,247,0.8);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .resume-title {
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    color: var(--gb-dark);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .resume-title::before { content: '▶ '; color: var(--gb-darkest); }
+
+  .resume-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+  }
+
+  .resume-contact-item {
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--gb-dark);
+    text-decoration: none;
+  }
+
+  .resume-contact-item:hover { color: var(--gb-darkest); }
+  .resume-contact-item::before { content: '→ '; font-family: var(--mono); font-size: 0.4375rem; }
+
+  .open-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 0.4375rem;
+    color: var(--gb-darkest);
+    text-transform: uppercase;
+    border: 2px solid var(--gb-darkest);
+    padding: 5px 8px;
+    background: var(--pastel-mint);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+  }
+
+  .open-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gb-darkest);
+    flex-shrink: 0;
+    animation: gb-blink 1s steps(1) infinite;
+  }
+
+  /* ── SECTIONS ── */
+  .resume-section { margin-bottom: 16px; }
+  .resume-section:last-child { margin-bottom: 0; }
+
+  .section-heading {
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gb-darkest);
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--gb-dark);
+  }
+
+  .section-heading::before {
+    content: '▶ ';
+    font-size: 0.4375rem;
+    color: var(--gb-dark);
+  }
+
+  /* ── ENTRY (experience / education) ── */
+  .entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2px 16px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(59,48,80,0.15);
+  }
+
+  .entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .entry-title {
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    line-height: 1.5;
+    color: var(--gb-darkest);
+    text-transform: uppercase;
+  }
+
+  .entry-date {
+    font-family: var(--mono);
+    font-size: 0.4375rem;
+    color: var(--gb-dark);
+    white-space: nowrap;
+  }
+
+  .entry-org {
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--gb-dark);
+    grid-column: 1;
+    margin-bottom: 4px;
+  }
+
+  .entry-bullets {
+    list-style: none;
+    grid-column: 1 / -1;
+  }
+
+  .entry-bullets li {
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--gb-darkest);
+    padding-left: 12px;
+    position: relative;
+    margin-bottom: 2px;
+    line-height: 1.3;
+  }
+
+  .entry-bullets li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    font-family: var(--mono);
+    font-size: 0.375rem;
+    color: var(--gb-dark);
+    top: 0.3em;
+  }
+
+  /* ── PROJECTS (compact PDF columns) ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 16px;
+  }
+
+  .project-group { break-inside: avoid; }
+
+  .project-group-label {
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    color: var(--gb-light);
+    background: var(--gb-darkest);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    padding: 4px 6px;
+    border: 2px solid var(--gb-darkest);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+  }
+
+  .project-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .project-item {
+    line-height: 1.3;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(59,48,80,0.12);
+  }
+
+  .project-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .project-item-head {
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .project-item-name {
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    font-weight: normal;
+    color: var(--gb-darkest);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 0 rgba(221,233,247,0.6);
+  }
+
+  .lang-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.375rem;
+    padding: 1px 4px;
+    margin-left: 4px;
+    vertical-align: middle;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    background: var(--pastel-lilac);
+    color: var(--gb-darkest);
+    border: 1px solid var(--gb-darkest);
+    box-shadow: 1px 1px 0 var(--gb-dark);
+  }
+
+  .lang-java   { background: var(--pastel-peach); }
+  .lang-python { background: var(--pastel-lemon); }
+  .lang-c      { background: var(--pastel-sky); }
+  .lang-cpp    { background: var(--pastel-mint); }
+  .lang-rust   { background: var(--pastel-peach); }
+  .lang-torch  { background: var(--pastel-pink); }
+
+  .project-item-desc {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.875rem;
+    color: var(--gb-dark);
+    line-height: 1.25;
+    padding-left: 10px;
+  }
+
+  .project-item-desc::before {
+    content: '▸ ';
+    color: var(--gb-dark);
+    font-family: var(--mono);
+    font-size: 0.375rem;
+    margin-left: -10px;
+  }
+
+  /* ── SKILLS GRID ── */
+  .skills-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .skill-group {
+    border: 2px solid var(--gb-darkest);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+    padding: 8px 10px;
+    background: rgba(255,255,255,0.35);
+  }
+
+  .skill-group-label {
+    font-family: var(--mono);
+    font-size: 0.4375rem;
+    color: var(--gb-darkest);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .skill-group-items {
+    font-family: var(--sans);
+    font-size: 0.9375rem;
+    color: var(--gb-darkest);
+    line-height: 1.3;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 26px 8%;
+    border-top: 4px solid var(--gb-darkest);
+    background: var(--gb-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    color: var(--gb-darkest);
+  }
+
+  @media (max-width: 900px) {
+    .nav-actions { gap: 6px; }
+    .page-size-badge { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-table { grid-template-columns: 1fr 1fr; }
+    .resume-header { flex-direction: column; }
+    .zoom-toolbar { bottom: 18px; right: 18px; }
+    .zoom-toolbar .zoom-btn:nth-child(4) { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  @media print {
+    nav, footer, .page-ruler, .zoom-toolbar { display: none !important; }
+    body { background: #fff; background-image: none; }
+    .resume-viewport { padding: 0; overflow: visible; }
+    .resume-page {
+      width: 100%;
+      min-height: auto;
+      transform: none !important;
+      border: none;
+      box-shadow: none;
+      padding: 0.45in 0.5in;
+    }
+    .open-dot { animation: none; }
+    @page { size: letter; margin: 0.45in; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">~/portfolio</a>
+  <div class="nav-actions">
+    <span class="page-size-badge">8.5 × 11 in</span>
+    <a href="your-resume.pdf" download class="btn-primary">↓ PDF</a>
+  </div>
+</nav>
+
+<div class="zoom-toolbar" aria-label="Zoom controls">
+  <button type="button" class="zoom-btn" id="zoomOut" title="Zoom out">−</button>
+  <span class="zoom-label" id="zoomLabel">115%</span>
+  <button type="button" class="zoom-btn" id="zoomIn" title="Zoom in">+</button>
+  <button type="button" class="zoom-btn" id="zoomFit" title="Fit to width">Fit</button>
+  <button type="button" class="zoom-btn" id="zoomReset" title="Actual size">100%</button>
+</div>
+
+<div class="resume-viewport" id="resumeViewport">
+  <article class="resume-page" id="resumePage">
+
+    <header class="resume-header">
+      <div>
+        <h1 class="resume-name">Joseph Rojas</h1>
+        <p class="resume-title">Software Engineer</p>
+        <div class="resume-contacts">
+          <a href="mailto:joseph.rojas_@berkeley.edu" class="resume-contact-item">joseph.rojas_@berkeley.edu</a>
+          <a href="https://www.linkedin.com/in/joseph-rojas-" target="_blank" class="resume-contact-item">linkedin.com/in/joseph-rojas</a>
+          <span class="resume-contact-item">Berkeley, CA</span>
+        </div>
+      </div>
+      <div class="resume-header-right">
+        <div class="open-status">
+          <div class="open-dot"></div>
+          Open to work
+        </div>
+      </div>
+    </header>
+
+    <section class="resume-section">
+      <h2 class="section-heading">Education</h2>
+      <div class="entry">
+        <div class="entry-title">University of California, Berkeley</div>
+        <div class="entry-date">Alumni</div>
+        <div class="entry-org">B.S. in Electrical Engineering &amp; Computer Science</div>
+        <ul class="entry-bullets">
+          <li>Coursework: Operating Systems, Computer Security, Internet &amp; Networking, Artificial Intelligence, Machine Learning, Data Structures, Data Science</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="resume-section">
+      <h2 class="section-heading">Experience</h2>
+      <div class="entry">
+        <div class="entry-title">Your Role / Internship Title</div>
+        <div class="entry-date">Jun 20XX – Aug 20XX</div>
+        <div class="entry-org">Company Name</div>
+        <ul class="entry-bullets">
+          <li>Replace with what you built or contributed to — start with a strong verb (built, reduced, automated, designed)</li>
+          <li>Add a metric wherever possible — X% faster, Y users, Z hours saved per week</li>
+          <li>Third bullet if needed</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="resume-section">
+      <h2 class="section-heading">Projects</h2>
+      <div class="projects-grid">
+
+        <div class="project-group">
+          <div class="project-group-label">Systems &amp; Security</div>
+          <ul class="project-list">
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Pintos OS</span>
+                <span class="lang-badge lang-c">C / x86</span>
+              </span>
+              <span class="project-item-desc">Priority/MLFQS scheduling, user-program syscalls, extensible file system with buffer cache.</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Memory Safety Exploitation</span>
+                <span class="lang-badge lang-c">C / x86</span>
+              </span>
+              <span class="project-item-desc">Shellcode exploits defeating stack canaries, ASLR, and NX via return-oriented programming.</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">HTTP Server</span>
+                <span class="lang-badge lang-rust">Rust</span>
+              </span>
+              <span class="project-item-desc">HTTP/1.0 on Tokio with streaming file transfer and thread-safe live stats (Arc/RwLock).</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">MapReduce</span>
+                <span class="lang-badge lang-rust">Rust</span>
+              </span>
+              <span class="project-item-desc">Fault-tolerant MapReduce over gRPC with heartbeat failure detection and task re-execution.</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Unix Shell</span>
+                <span class="lang-badge lang-c">C</span>
+              </span>
+              <span class="project-item-desc">Bash-like shell with pipelines, I/O redirection, and POSIX signal handling.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="project-group">
+          <div class="project-group-label">Networking</div>
+          <ul class="project-list">
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">TCP Transport</span>
+                <span class="lang-badge lang-python">Python</span>
+              </span>
+              <span class="project-item-desc">Full TCP state machine, sliding-window flow control, and RFC 6298 retransmission timeouts.</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Distance-Vector Routing</span>
+                <span class="lang-badge lang-python">Python</span>
+              </span>
+              <span class="project-item-desc">Distributed Bellman-Ford with split horizon, poison reverse, and loop prevention.</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Traceroute</span>
+                <span class="lang-badge lang-python">Python</span>
+              </span>
+              <span class="project-item-desc">IPv4/UDP/ICMP path discovery with TTL probing and robust loss handling.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="project-group">
+          <div class="project-group-label">AI &amp; Machine Learning</div>
+          <ul class="project-list">
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Deep Learning</span>
+                <span class="lang-badge lang-torch">PyTorch</span>
+              </span>
+              <span class="project-item-desc">ResNet-18 and Transformer from scratch; cross-modal transfer (DNABERT, ConvNeXt on audio).</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Autodiff Engine</span>
+                <span class="lang-badge lang-python">NumPy</span>
+              </span>
+              <span class="project-item-desc">PyTorch-style autograd with reverse-mode backprop and SGD/Momentum/Adam optimizers.</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Pacman AI</span>
+                <span class="lang-badge lang-python">Python</span>
+              </span>
+              <span class="project-item-desc">Search agents (A*, UCS) extended to Minimax, Alpha-Beta, and Expectimax.</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Ghost Tracking</span>
+                <span class="lang-badge lang-python">Python</span>
+              </span>
+              <span class="project-item-desc">Bayes-net inference, HMMs, and particle filtering from noisy sensor data.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="project-group">
+          <div class="project-group-label">Foundations &amp; Data</div>
+          <ul class="project-list">
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Build Your Own World</span>
+                <span class="lang-badge lang-java">Java</span>
+              </span>
+              <span class="project-item-desc">Procedural 2D world engine with seed-based generation, collision, and save/load.</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Population Analysis</span>
+                <span class="lang-badge lang-python">Python</span>
+              </span>
+              <span class="project-item-desc">Demographic/socioeconomic analysis linking population growth to poverty over time.</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Health Classification</span>
+                <span class="lang-badge lang-python">Python</span>
+              </span>
+              <span class="project-item-desc">kNN classifier for cardiovascular risk with normalization and train/test evaluation.</span>
+            </li>
+            <li class="project-item">
+              <span class="project-item-head">
+                <span class="project-item-name">Spam Detection</span>
+                <span class="lang-badge lang-python">Python</span>
+              </span>
+              <span class="project-item-desc">Logistic-regression spam classifier evaluated with accuracy, precision, and recall.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="resume-section">
+      <h2 class="section-heading">Skills</h2>
+      <div class="skills-table">
+        <div class="skill-group">
+          <div class="skill-group-label">Languages</div>
+          <div class="skill-group-items">C, x86 assembly, RISC-V assembly, Python, Go, Rust, Java, SQL, MongoDB query language, HTML/CSS, Swift</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Systems</div>
+          <div class="skill-group-items">OS kernels, concurrency, memory mgmt, system design, binary exploitation</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Networking</div>
+          <div class="skill-group-items">TCP/IP, ICMP, routing, async I/O, gRPC/RPC, fault tolerance</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">AI / Tools</div>
+          <div class="skill-group-items">PyTorch, NumPy, Pandas, deep learning, RL, Git, Docker, GDB, Linux</div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Databases</div>
+          <div class="skill-group-items">Database internals, transactions, recovery &amp; durability</div>
+        </div>
+      </div>
+    </section>
+
+  </article>
+  <p class="page-ruler">US Letter · 8.5 × 11 in</p>
+</div>
+
+<footer>
+  <span>~/joseph-rojas/resume</span>
+  <span id="footer-time"></span>
+</footer>
+
+<script>
+  const PAGE_WIDTH_PX = 816; /* 8.5in @ 96dpi */
+  const ZOOM_MIN = 0.45;
+  const ZOOM_MAX = 1.75;
+  const ZOOM_STEP = 0.1;
+  const DEFAULT_ZOOM = 1.15;
+
+  let zoom = DEFAULT_ZOOM;
+  const root = document.documentElement;
+  const viewport = document.getElementById('resumeViewport');
+  const zoomLabel = document.getElementById('zoomLabel');
+
+  function applyZoom(value) {
+    zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, value));
+    root.style.setProperty('--zoom', zoom.toFixed(3));
+    zoomLabel.textContent = Math.round(zoom * 100) + '%';
+    viewport.scrollTop = 0;
+  }
+
+  function fitToWidth() {
+    const pad = 32;
+    const avail = viewport.clientWidth - pad;
+    applyZoom(avail / PAGE_WIDTH_PX);
+  }
+
+  document.getElementById('zoomIn').addEventListener('click', () => applyZoom(zoom + ZOOM_STEP));
+  document.getElementById('zoomOut').addEventListener('click', () => applyZoom(zoom - ZOOM_STEP));
+  document.getElementById('zoomReset').addEventListener('click', () => applyZoom(1));
+  document.getElementById('zoomFit').addEventListener('click', fitToWidth);
+
+  window.addEventListener('resize', () => {
+    if (zoom < 1 && viewport.clientWidth < PAGE_WIDTH_PX + 32) fitToWidth();
+  });
+
+  applyZoom(DEFAULT_ZOOM);
+
+  function tick() {
+    document.getElementById('footer-time').textContent =
+      new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>

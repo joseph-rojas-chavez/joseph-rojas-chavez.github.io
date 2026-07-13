@@ -1,0 +1,2683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Josep Rojas — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Pastel palette: cool lavender bg vs pastel-blue boxes, deep plum ink */
+    --gb-darkest: #3B3050;
+    --gb-dark:    #61508B;
+    --gb-mid:     #EAB295;
+    --gb-light:   #DDE9F7;
+
+    /* Pastel accents for tags & language badges */
+    --pastel-pink:  #F9CDD8;
+    --pastel-mint:  #C9EBD6;
+    --pastel-sky:   #C8E0F6;
+    --pastel-peach: #FBDCBB;
+    --pastel-lilac: #DDD1F3;
+    --pastel-lemon: #F8EFC0;
+
+    --bg:       var(--gb-mid);
+    --bg2:      var(--gb-light);
+    --bg3:      var(--gb-light);
+    --border:   var(--gb-darkest);
+    --accent:   var(--gb-darkest);
+    --accent2:  var(--gb-dark);
+    --text:     var(--gb-darkest);
+    --muted:    var(--gb-dark);
+    --success:  var(--gb-darkest);
+    --mono:     'Press Start 2P', monospace;
+    --sans:     'VT323', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(59,48,80,0.07) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(90deg, rgba(59,48,80,0.06) 0 1px, transparent 1px 4px);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+
+  ::selection { background: var(--gb-darkest); color: var(--gb-light); }
+
+  @keyframes gb-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+  /* ── NAV (START menu) ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 3.75rem;
+    background: var(--gb-light);
+    border-bottom: 4px solid var(--gb-darkest);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--gb-darkest);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    position: relative;
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    color: var(--gb-dark);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .nav-links a::before {
+    content: '▶';
+    position: absolute;
+    left: -13px;
+    opacity: 0;
+  }
+
+  .nav-links a:hover { color: var(--gb-darkest); }
+  .nav-links a:hover::before { opacity: 1; animation: gb-blink 1s steps(1) infinite; }
+
+  .nav-links a.nav-resume {
+    color: var(--gb-light);
+    background: var(--gb-darkest);
+    border: none;
+    padding: 6px 10px;
+    border-radius: 0;
+    box-shadow: 3px 3px 0 var(--gb-dark);
+  }
+  .nav-links a.nav-resume:hover { background: var(--gb-dark); color: var(--gb-light); }
+  .nav-links a.nav-resume::before { display: none; }
+
+  code {
+    font-family: var(--sans);
+    background: var(--gb-darkest);
+    color: var(--gb-light);
+    padding: 0 5px;
+    font-size: 0.9em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 60px 8%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    color: var(--gb-darkest);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero-eyebrow::before { content: '▶ '; }
+
+  .hero-name {
+    font-family: var(--mono);
+    font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+    line-height: 1.3;
+    color: var(--gb-darkest);
+    text-shadow: 3px 3px 0 var(--gb-light);
+    margin-bottom: 16px;
+  }
+
+  .hero-tagline {
+    font-family: var(--mono);
+    font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+    color: var(--gb-dark);
+    margin-bottom: 10px;
+  }
+
+  .typewriter-wrap {
+    font-family: var(--mono);
+    font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+    color: var(--gb-darkest);
+    height: 2em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 32px;
+  }
+
+  .typewriter-wrap::before { content: '>'; color: var(--gb-dark); }
+
+  #typewriter { border-right: 8px solid var(--gb-darkest); padding-right: 4px; }
+
+  .hero-desc {
+    color: var(--gb-darkest);
+    font-family: var(--sans);
+    font-size: 1.3125rem;
+    max-width: 28.75rem;
+    margin-bottom: 40px;
+    line-height: 1.4;
+    background: var(--gb-light);
+    border: 4px solid var(--gb-darkest);
+    box-shadow:
+      inset 0 0 0 3px var(--gb-light),
+      inset 0 0 0 5px var(--gb-darkest);
+    padding: 18px 20px;
+    position: relative;
+  }
+
+  .hero-desc::after {
+    content: '▼';
+    position: absolute;
+    right: 14px;
+    bottom: 6px;
+    font-size: 0.75rem;
+    color: var(--gb-darkest);
+    animation: gb-blink 1s steps(1) infinite;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+
+  .about-card {
+    max-width: 34rem;
+  }
+
+  .about-card .card-body {
+    padding: 16px 20px 20px;
+  }
+
+  .about-entry {
+    margin-bottom: 0;
+  }
+
+  .about-entry-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .about-entry .card-row-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .about-card .card-row-text {
+    display: block;
+    font-size: 1.25rem;
+    line-height: 1.45;
+  }
+
+  .about-card .card-row-label {
+    display: inline-block;
+    color: var(--gb-darkest);
+    font-size: 0.5625rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0;
+    padding: 4px 9px;
+    background: var(--pastel-lemon);
+    border: 2px solid var(--gb-darkest);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+  }
+
+  .about-entry:nth-child(1) .card-row-label { background: var(--pastel-peach); }
+  .about-entry:nth-child(3) .card-row-label { background: var(--pastel-sky); }
+  .about-entry:nth-child(5) .card-row-label { background: var(--pastel-mint); }
+  .about-entry:nth-child(7) .card-row-label { background: var(--pastel-lilac); }
+
+  .about-card .card-divider {
+    margin: 14px 0;
+  }
+
+  .about-entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .card-row-label {
+    color: var(--muted);
+    margin-bottom: 2px;
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .card-row-text a {
+    color: var(--gb-darkest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .card-row-text a:hover { color: var(--gb-dark); }
+
+  .hero-mobile-headshot { display: none; }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 12px 20px;
+    background: var(--gb-darkest);
+    color: var(--gb-light);
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: 4px 4px 0 var(--gb-dark);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    padding: 12px 20px;
+    border: 3px solid var(--gb-darkest);
+    background: var(--gb-light);
+    color: var(--gb-darkest);
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    text-decoration: none;
+    border-radius: 0;
+    box-shadow: 4px 4px 0 var(--gb-dark);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .btn-ghost:hover,
+  .btn-ghost:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+  }
+
+  /* ── HERO RIGHT: standalone headshot + profile card ── */
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    position: sticky;
+    top: 5rem;
+  }
+
+  .headshot-frame {
+    width: min(21rem, 92%);
+    background: var(--gb-light);
+    border: 4px solid var(--gb-darkest);
+    box-shadow:
+      inset 0 0 0 3px var(--gb-light),
+      inset 0 0 0 5px var(--gb-darkest),
+      8px 8px 0 var(--gb-dark);
+    padding: 12px 12px 10px;
+    transform: rotate(-2deg);
+    transition: transform 0.2s ease;
+  }
+
+  .headshot-frame:hover { transform: rotate(0deg) scale(1.02); }
+
+  /* Natural aspect ratio, no cropping, no tint */
+  .headshot-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 3px solid var(--gb-darkest);
+    background: #FFFFFF;
+  }
+
+  .headshot-caption {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gb-darkest);
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  /* ── PROFILE CARD (Player ID, right side of hero) ── */
+  .profile-card {
+    width: 100%;
+    background: var(--gb-light);
+    border: 4px solid var(--gb-darkest);
+    box-shadow:
+      inset 0 0 0 3px var(--gb-light),
+      inset 0 0 0 5px var(--gb-darkest),
+      8px 8px 0 var(--gb-dark);
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .profile-card::before {
+    content: 'PROFILE';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    color: var(--gb-light);
+    background: var(--gb-darkest);
+    text-align: center;
+    padding: 8px 0;
+    margin: 5px;
+    letter-spacing: 0.15em;
+  }
+
+  .profile-card.about-card::before {
+    content: 'ABOUT ME';
+  }
+
+  .card-banner {
+    height: 40px;
+    background: transparent;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 8px 16px;
+  }
+
+  .li-badge {
+    display: inline-block;
+    background: #0A66C2; /* LinkedIn brand blue */
+    color: #FFFFFF;
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    padding: 5px 8px;
+    border-radius: 0;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .li-badge:hover { background: #004182; }
+
+  .card-avatar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 18px;
+    margin-bottom: 14px;
+  }
+
+  .card-identity { padding-top: 0; }
+
+  .card-role {
+    font-family: var(--sans);
+    font-size: 1.0625rem;
+    color: var(--gb-dark);
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  .card-divider {
+    border: none;
+    border-top: 3px solid var(--gb-darkest);
+    margin: 0 18px 14px;
+  }
+
+  .card-body { padding: 0 18px 4px; }
+
+  .card-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-family: var(--sans);
+    font-size: 1.125rem;
+    color: var(--gb-dark);
+  }
+
+  .card-row-icon {
+    color: var(--gb-darkest);
+    font-size: 0.875rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .card-row-text { color: var(--gb-darkest); line-height: 1.4; }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px 14px;
+    border-top: 3px solid var(--gb-darkest);
+    margin-top: 4px;
+  }
+
+  .open-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    color: var(--gb-darkest);
+    text-transform: uppercase;
+  }
+
+  .open-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 0;
+    background: var(--gb-darkest);
+    flex-shrink: 0;
+    animation: gb-blink 1s steps(1) infinite;
+  }
+
+  .card-footer .btn-primary {
+    padding: 8px 12px;
+    font-size: 0.5rem;
+    box-shadow: 3px 3px 0 var(--gb-dark);
+  }
+
+  .card-footer .btn-primary:hover,
+  .card-footer .btn-primary:active {
+    box-shadow: 2px 2px 0 var(--gb-dark);
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 90px 8%; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gb-dark);
+    margin-bottom: 14px;
+  }
+
+  .section-label::before { content: '▶ '; }
+
+  .section-title {
+    font-family: var(--mono);
+    font-size: clamp(1rem, 2.4vw, 1.5rem);
+    line-height: 1.4;
+    color: var(--gb-darkest);
+    text-shadow: 3px 3px 0 var(--gb-light);
+    margin-bottom: 48px;
+    text-transform: uppercase;
+  }
+
+  /* ── SKILLS ── */
+  #skills {
+    background: transparent;
+    border-top: 4px solid var(--gb-darkest);
+    border-bottom: 4px solid var(--gb-darkest);
+  }
+
+  .skill-tag-panel {
+    background: var(--gb-light);
+    border: 3px solid var(--gb-darkest);
+    box-shadow: 4px 4px 0 var(--gb-dark);
+    padding: 22px 24px;
+    margin-bottom: 32px;
+  }
+
+  .skill-tag-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .skill-tag-group .skill-lang {
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .skill-tags--prominent .tag {
+    font-size: 0.8125rem;
+    padding: 9px 16px;
+    box-shadow: 2px 2px 0 var(--gb-dark);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+    gap: 16px;
+  }
+
+  .skill-card {
+    background: var(--gb-light);
+    border: 3px solid var(--gb-darkest);
+    box-shadow: 3px 3px 0 var(--gb-dark);
+    border-radius: 0;
+    padding: 14px 16px;
+    transition: transform 0.1s steps(2);
+  }
+
+  .skill-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--gb-dark);
+  }
+
+  .skill-card .skill-lang {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--gb-darkest);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+
+  .skill-card .skill-tags {
+    margin-top: 0;
+    gap: 6px;
+  }
+
+  .skill-card .tag {
+    font-size: 0.625rem;
+    padding: 5px 10px;
+  }
+
+  .skill-lang {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--gb-darkest);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  /* ── PROJECTS (Pokédex entries) ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+    counter-reset: dex;
+  }
+
+  .project-card {
+    background: var(--gb-light);
+    border: 4px solid var(--gb-darkest);
+    box-shadow:
+      inset 0 0 0 3px var(--gb-light),
+      inset 0 0 0 5px var(--gb-darkest);
+    border-radius: 0;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    cursor: default;
+    counter-increment: dex;
+    position: relative;
+  }
+
+  .project-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow:
+      inset 0 0 0 3px var(--gb-light),
+      inset 0 0 0 5px var(--gb-darkest),
+      6px 6px 0 var(--gb-dark);
+  }
+
+  .project-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .project-name {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    line-height: 1.6;
+    color: var(--gb-darkest);
+    text-transform: uppercase;
+  }
+
+  /* Pokédex number before each project name */
+  .project-name::before {
+    content: 'No.' counter(dex, decimal-leading-zero) ' ';
+    display: block;
+    font-size: 0.5rem;
+    color: var(--gb-dark);
+    margin-bottom: 4px;
+  }
+
+  .lang-badge {
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    padding: 5px 8px;
+    border-radius: 0;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    background: var(--pastel-lilac);
+    color: var(--gb-darkest);
+    border: 2px solid var(--gb-darkest);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+  }
+
+  /* Each language gets its own pastel highlight */
+  .lang-java   { background: var(--pastel-peach); }
+  .lang-python { background: var(--pastel-lemon); }
+  .lang-c      { background: var(--pastel-sky); }
+  .lang-cpp    { background: var(--pastel-mint); }
+  .lang-rust   { background: var(--pastel-peach); }
+  .lang-torch  { background: var(--pastel-pink); }
+  .lang-asm    { background: var(--pastel-lilac); }
+  .lang-swift  { background: var(--pastel-pink); }
+
+  .project-desc {
+    font-family: var(--sans);
+    font-size: 1.125rem;
+    color: var(--gb-darkest);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .project-desc-lead {
+    margin-bottom: 0.65em;
+  }
+
+  .project-desc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .project-desc-list li {
+    position: relative;
+    padding-left: 1.15em;
+  }
+
+  .project-desc-list li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    top: 0.3em;
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    color: var(--gb-dark);
+  }
+
+  .project-desc-media {
+    display: block;
+    margin-top: 0.75em;
+    padding: 12px 14px;
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    color: var(--gb-darkest);
+    letter-spacing: 0.04em;
+    line-height: 1.65;
+    background: var(--pastel-sky);
+    border: 3px solid var(--gb-darkest);
+    box-shadow:
+      inset 0 0 0 2px var(--pastel-sky),
+      inset 0 0 0 4px var(--gb-darkest),
+      3px 3px 0 var(--gb-dark);
+  }
+
+  .impact-tag {
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    color: var(--gb-darkest);
+    letter-spacing: 0.04em;
+  }
+
+  .impact-tag::before { content: '▲ '; }
+
+  .project-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 4px;
+  }
+
+  .project-link {
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    color: var(--gb-dark);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .project-link:hover { color: var(--gb-darkest); }
+  .project-link::before { content: '▶ '; }
+
+  /* ── PROJECT GROUPS ── */
+  .project-group { margin-bottom: 56px; }
+  .project-group:last-child { margin-bottom: 0; }
+
+  .group-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .group-title {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--gb-darkest);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .group-course {
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    color: var(--gb-dark);
+    letter-spacing: 0.06em;
+  }
+
+  .group-heading::after {
+    content: '';
+    flex: 1;
+    height: 3px;
+    background: var(--gb-darkest);
+  }
+
+  /* Image placeholder shown until a real screenshot is dropped in image/projects/ —
+     framed like the Game Boy screen bezel */
+  .project-thumb {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 0;
+    overflow: hidden;
+    background-color: var(--gb-mid);
+    background-size: cover;
+    background-position: center;
+    border: 3px solid var(--gb-darkest);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -2px 0 4px;
+  }
+
+  .project-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59,48,80,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,48,80,0.08) 1px, transparent 1px);
+    background-size: 8px 8px;
+    pointer-events: none;
+  }
+
+  .thumb-label {
+    position: relative;
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gb-dark);
+    text-align: center;
+    padding: 8px 12px;
+    border: 2px dashed var(--gb-darkest);
+    border-radius: 0;
+  }
+
+  .thumb-label span { color: var(--gb-darkest); }
+
+  /* When a real image is set via inline style, hide the placeholder label */
+  .project-thumb.has-image .thumb-label { display: none; }
+  .project-thumb.has-image::before { display: none; }
+
+  /* Fit the whole image inside the 16:9 frame, centered, no cropping —
+     works for any image size/aspect ratio. Dark neutral bezel behind the
+     image: letterbox bars read as "screen edge" instead of a color wash,
+     so the PNGs show their true colors untinted. */
+  .project-thumb.has-image {
+    background-color: var(--gb-darkest);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: zoom-in;
+  }
+
+  /* Media toggle: stacked image + video, switched via side arrows */
+  .thumb-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .thumb-media.active {
+    opacity: 1;
+    pointer-events: auto;
+    cursor: zoom-in;
+  }
+
+  /* Carousel chrome sits around the thumb, not on top of the media */
+  .media-frame {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: -2px 0 4px;
+  }
+
+  .media-frame-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 1.625rem;
+  }
+
+  .media-video-badge {
+    font-family: var(--mono);
+    font-size: 0.4375rem;
+    padding: 5px 8px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: var(--pastel-pink);
+    color: var(--gb-darkest);
+    border: 2px solid var(--gb-darkest);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+  }
+
+  .media-frame-body {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .media-frame-body .project-thumb {
+    margin: 0;
+    min-width: 0;
+  }
+
+  .media-frame-body .project-thumb.media-toggle.has-image {
+    background-color: var(--gb-light);
+    transition: aspect-ratio 0.25s ease;
+  }
+
+  .media-nav {
+    position: static;
+    transform: none;
+    z-index: 1;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 3px solid var(--gb-darkest);
+    border-radius: 0;
+    background: var(--gb-light);
+    color: var(--gb-darkest);
+    font-family: var(--mono);
+    font-size: 1.125rem;
+    line-height: 1;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow:
+      inset 0 0 0 2px var(--gb-light),
+      inset 0 0 0 4px var(--gb-darkest),
+      3px 3px 0 var(--gb-dark);
+    transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  }
+
+  .media-nav:hover,
+  .media-nav:focus-visible {
+    background: var(--gb-darkest);
+    color: var(--gb-light);
+    outline: none;
+    transform: scale(1.05);
+  }
+
+  .media-slide-indicator {
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    padding: 5px 8px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: var(--pastel-lemon);
+    color: var(--gb-darkest);
+    border: 2px solid var(--gb-darkest);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+    margin-left: auto;
+  }
+
+  .media-frame-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .media-carousel-hint {
+    font-family: var(--mono);
+    font-size: 0.4375rem;
+    padding: 5px 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    background: var(--gb-light);
+    color: var(--gb-darkest);
+    border: 2px solid var(--gb-darkest);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+  }
+
+  .media-frame.showing-video .media-carousel-hint { display: none; }
+
+  /* Video timeline below the thumb when a video slide is active */
+  .video-progress {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px;
+    background: var(--gb-light);
+    border: 2px solid var(--gb-darkest);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+    cursor: default;
+  }
+
+  .media-frame.showing-video .video-progress { display: flex; }
+
+  .video-progress-track {
+    position: relative;
+    height: 8px;
+    border-radius: 0;
+    background: var(--gb-dark);
+    border: 1px solid var(--gb-light);
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .video-progress-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 0;
+    background: var(--gb-light);
+    pointer-events: none;
+  }
+
+  .video-progress-time {
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.04em;
+    color: var(--gb-darkest);
+    align-self: flex-end;
+    user-select: none;
+  }
+
+  @media (max-width: 640px) {
+    .media-frame-body {
+      grid-template-columns: auto 1fr auto;
+      gap: 6px;
+    }
+
+    .media-nav {
+      width: 2rem;
+      height: 2rem;
+      font-size: 1rem;
+    }
+
+    .media-carousel-hint {
+      font-size: 0.375rem;
+      padding: 4px 8px;
+      white-space: normal;
+      line-height: 1.4;
+    }
+
+    .media-video-badge {
+      font-size: 0.375rem;
+      white-space: normal;
+      line-height: 1.4;
+    }
+  }
+
+  /* Lightbox: enlarged media centered, dimmed sides close it */
+  .media-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh 6vw;
+    background: rgba(59, 48, 80, 0.85);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    cursor: zoom-out;
+  }
+
+  .media-lightbox.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .media-lightbox-inner {
+    position: relative;
+    width: min(88vw, 1100px);
+    max-height: 82vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    transform: scale(0.94);
+    transition: transform 0.25s ease;
+  }
+
+  .media-lightbox.open .media-lightbox-inner {
+    transform: scale(1);
+  }
+
+  .media-lightbox-inner img,
+  .media-lightbox-inner video {
+    display: block;
+    width: 100%;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 0;
+    border: 6px solid var(--gb-darkest);
+    outline: 4px solid var(--gb-light);
+    background: #FFFFFF;
+    box-shadow: 12px 12px 0 rgba(59, 48, 80, 0.9);
+  }
+
+  .media-lightbox-hint {
+    position: absolute;
+    bottom: calc(-2.25rem);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gb-light);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  body.lightbox-open { overflow: hidden; }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    color: var(--gb-darkest);
+    background: var(--gb-light);
+    border: 2px solid var(--gb-darkest);
+    padding: 4px 7px;
+    border-radius: 0;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  /* Cycle pastel highlights across tags */
+  .tag:nth-child(6n+1) { background: var(--pastel-mint); }
+  .tag:nth-child(6n+2) { background: var(--pastel-pink); }
+  .tag:nth-child(6n+3) { background: var(--pastel-sky); }
+  .tag:nth-child(6n+4) { background: var(--pastel-lemon); }
+  .tag:nth-child(6n+5) { background: var(--pastel-lilac); }
+  .tag:nth-child(6n+6) { background: var(--pastel-peach); }
+
+  /* ── TOPIC GRID (project browser) ── */
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  /* Author display:grid would otherwise override the [hidden] attribute */
+  .topic-grid[hidden] { display: none; }
+
+  .topic-card {
+    --hover-bg: var(--pastel-lemon);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+    background: var(--gb-light);
+    border: 4px solid var(--gb-darkest);
+    box-shadow:
+      inset 0 0 0 3px var(--gb-light),
+      inset 0 0 0 5px var(--gb-darkest),
+      6px 6px 0 var(--gb-dark);
+    border-radius: 0;
+    padding: 32px;
+    font-family: var(--sans);
+    color: var(--gb-darkest);
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.25s ease;
+  }
+
+  /* Warm pastels complement the cool lavender page background;
+     each card gets its own highlight so the grid glows in a cycle */
+  .topic-card:nth-child(6n+1) { --hover-bg: var(--pastel-peach); }
+  .topic-card:nth-child(6n+2) { --hover-bg: var(--pastel-lemon); }
+  .topic-card:nth-child(6n+3) { --hover-bg: var(--pastel-mint); }
+  .topic-card:nth-child(6n+4) { --hover-bg: var(--pastel-sky); }
+  .topic-card:nth-child(6n+5) { --hover-bg: var(--pastel-pink); }
+  .topic-card:nth-child(6n+6) { --hover-bg: var(--pastel-lilac); }
+
+  .topic-card:hover,
+  .topic-card:focus-visible {
+    background: var(--hover-bg);
+    transform: translate(-3px, -3px);
+    box-shadow:
+      inset 0 0 0 3px var(--hover-bg),
+      inset 0 0 0 5px var(--gb-darkest),
+      9px 9px 0 var(--gb-dark);
+    outline: none;
+  }
+
+  .topic-card:hover .topic-name::before,
+  .topic-card:focus-visible .topic-name::before {
+    opacity: 1;
+    animation: gb-blink 1s steps(1) infinite;
+  }
+
+  .topic-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .topic-count {
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    color: var(--gb-dark);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .topic-name {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    text-transform: uppercase;
+  }
+
+  .topic-name::before {
+    content: '▶ ';
+    opacity: 0;
+  }
+
+  .topic-desc {
+    font-family: var(--sans);
+    font-size: 1.3125rem;
+    color: var(--gb-dark);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .topic-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: auto;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--gb-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--gb-darkest);
+    border: 3px solid var(--gb-darkest);
+    box-shadow: 3px 3px 0 var(--gb-dark);
+    transition: background-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  }
+
+  .topic-cta::after { content: ' ▼'; animation: gb-blink 1s steps(1) infinite; }
+
+  .topic-card:hover .topic-cta,
+  .topic-card:focus-visible .topic-cta {
+    background: var(--gb-dark);
+    box-shadow: 2px 2px 0 var(--gb-darkest);
+    transform: translate(1px, 1px);
+  }
+
+  /* ── TOPIC PANELS (drill-down) ── */
+  .topic-panel[hidden] { display: none; }
+
+  .panel-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    color: var(--gb-darkest);
+    background: var(--gb-light);
+    border: 3px solid var(--gb-darkest);
+    padding: 9px 14px;
+    border-radius: 0;
+    box-shadow: 3px 3px 0 var(--gb-dark);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .back-btn:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--gb-dark);
+  }
+  .back-btn::before { content: '◀ '; }
+
+  .panel-title {
+    font-family: var(--mono);
+    font-size: clamp(0.8rem, 1.8vw, 1.05rem);
+    line-height: 1.5;
+    color: var(--gb-darkest);
+    text-transform: uppercase;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 26px 8%;
+    border-top: 4px solid var(--gb-darkest);
+    background: var(--gb-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 0.5625rem;
+    color: var(--gb-darkest);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .topic-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-right { display: none; }
+    .hero-mobile-headshot {
+      display: block;
+      width: min(14rem, 70%);
+      margin-bottom: 28px;
+    }
+    .hero-mobile-headshot .headshot-frame {
+      width: 100%;
+      transform: none;
+    }
+    nav { padding: 0 6%; }
+    .nav-links { gap: 20px; }
+    section { padding: 72px 6%; }
+  }
+
+  @media (max-width: 640px) {
+    .topic-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">~/portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <!-- Resume (hidden — restore when ready)
+    <li><a href="resume.html" class="nav-resume">Resume</a></li>
+    -->
+  </ul>
+</nav>
+
+<!-- HERO / ABOUT -->
+<section class="hero" id="about">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-mobile-headshot">
+        <div class="headshot-frame">
+          <img src="image/headshot.jpg" alt="Joseph Rojas headshot">
+          <span class="headshot-caption">Me</span>
+        </div>
+      </div>
+      <p class="hero-eyebrow">Software Engineer</p>
+      <h1 class="hero-name">Joseph Rojas<br/></h1>
+      <p class="hero-tagline">I build things with</p>
+      <div class="typewriter-wrap">
+        <span id="typewriter"></span>
+      </div>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">View projects</a>
+      </div>
+
+      <div class="profile-card about-card">
+        <div class="card-body">
+          <div class="about-entry">
+            <div class="about-entry-head">
+              <span class="card-row-icon">&#8599;</span>
+              <div class="card-row-label">Currently</div>
+            </div>
+            <span class="card-row-text">
+              UC Berkeley alumni, majored in Electrical Engineering & Computer Science. Based in San Francisco, CA. Open to software
+              engineering internship and full-time roles.
+            </span>
+          </div>
+          <hr class="card-divider"/>
+          <div class="about-entry">
+            <div class="about-entry-head">
+              <span class="card-row-icon">&#9654;</span>
+              <div class="card-row-label">Things I like to do</div>
+            </div>
+            <span class="card-row-text">
+              I like to build apps that help me on my daily life and learn new things. 
+              I like to play European football and road trips.
+              Very interested in chess and reading fictional classics.
+            </span>
+          </div>
+          <hr class="card-divider"/>
+          <div class="about-entry">
+            <div class="about-entry-head">
+              <span class="card-row-icon">&#9733;</span>
+              <div class="card-row-label">Favorite things I've built</div>
+            </div>
+            <span class="card-row-text">
+              The projects I'm most proud of: a working OS kernel in Pintos and Movie Browser app — both things I had to understand layer
+              by layer before they worked. See the <a href="#projects">Projects</a> section.
+            </span>
+          </div>
+          <hr class="card-divider"/>
+          <div class="about-entry">
+            <div class="about-entry-head">
+              <span class="card-row-icon">&#9835;</span>
+              <div class="card-row-label">Off the clock</div>
+            </div>
+            <span class="card-row-text">I like to spend time reading and going to the gym.
+              I have climbed a volcano in Guatemala and swam in the middle of a lake by Yosemite National Park.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="headshot-frame">
+        <img src="image/headshot.jpg" alt="Joseph Rojas headshot">
+        <span class="headshot-caption">Me</span>
+      </div>
+
+      <div class="profile-card">
+      <div class="card-banner">
+        <a href="https://www.linkedin.com/in/joseph-rojas-" target="_blank" class="li-badge">in LinkedIn</a>
+      </div>
+      <div class="card-avatar-row">
+        <div class="card-identity">
+          <div class="card-role">B.S. Electrical Engineering &amp; Computer Science<br>University of California, Berkeley</div>
+        </div>
+      </div>
+      <hr class="card-divider"/>
+      <div class="card-body">
+        <div class="card-row">
+          <span class="card-row-icon">&#8599;</span>
+          <span class="card-row-text">internship / full-time roles · San Francisco, CA</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="open-status">
+          <div class="open-dot"></div>
+          Open to work
+        </div>
+        <a href="https://www.linkedin.com/in/joseph-rojas-" target="_blank" class="btn-primary">View profile</a>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Capabilities</p>
+  <h2 class="section-title">Tech stack</h2>
+  <div class="skill-tag-panel">
+    <div class="skill-tag-groups">
+      <div class="skill-tag-group">
+        <div class="skill-lang">Languages</div>
+        <div class="skill-tags skill-tags--prominent">
+          <span class="tag">C</span>
+          <span class="tag">x86 assembly</span>
+          <span class="tag">RISC-V assembly</span>
+          <span class="tag">Python</span>
+          <span class="tag">Go</span>
+          <span class="tag">Rust</span>
+          <span class="tag">Java</span>
+          <span class="tag">SQL</span>
+          <span class="tag">MongoDB query language</span>
+        </div>
+      </div>
+      <div class="skill-tag-group">
+        <div class="skill-lang">Frontend</div>
+        <div class="skill-tags skill-tags--prominent">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+        </div>
+      </div>
+      <div class="skill-tag-group">
+        <div class="skill-lang">iOS &amp; macOS</div>
+        <div class="skill-tags skill-tags--prominent">
+          <span class="tag">Swift</span>
+          <span class="tag">SwiftUI</span>
+          <span class="tag">MVVM</span>
+          <span class="tag">Mac Catalyst</span>
+          <span class="tag">AVFoundation</span>
+        </div>
+      </div>
+      <div class="skill-tag-group">
+        <div class="skill-lang">Tools</div>
+        <div class="skill-tags skill-tags--prominent">
+          <span class="tag">Git</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Swift Package Manager</span>
+          <span class="tag">Docker</span>
+          <span class="tag">GDB</span>
+          <span class="tag">Linux / CLI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-lang">Systems</div>
+      <div class="skill-tags">
+        <span class="tag">OS kernels &amp; syscalls</span>
+        <span class="tag">Concurrency</span>
+        <span class="tag">Memory management</span>
+        <span class="tag">System design</span>
+        <span class="tag">Binary exploitation</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-lang">Databases</div>
+      <div class="skill-tags">
+        <span class="tag">Database internals</span>
+        <span class="tag">Transactions</span>
+        <span class="tag">Recovery &amp; durability</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-lang">Networking &amp; distributed</div>
+      <div class="skill-tags">
+        <span class="tag">TCP / IP</span>
+        <span class="tag">ICMP &amp; routing</span>
+        <span class="tag">Socket &amp; async I/O</span>
+        <span class="tag">API integration</span>
+        <span class="tag">Third-party APIs</span>
+        <span class="tag">gRPC &amp; RPC</span>
+        <span class="tag">Fault tolerance</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-lang">AI / ML</div>
+      <div class="skill-tags">
+        <span class="tag">PyTorch</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">Deep learning</span>
+        <span class="tag">Speech-to-text</span>
+        <span class="tag">Reinforcement learning</span>
+        <span class="tag">Probabilistic inference</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Work</p>
+  <h2 class="section-title">Projects</h2>
+
+  <!-- To add a screenshot: drop a file at the path shown on each card's placeholder
+       (e.g. image/projects/byow.png), then set it live by adding class "has-image" and
+       style="background-image:url('image/projects/byow.png')" on that card's .project-thumb. -->
+
+  <!-- TOPIC GRID: click a topic to reveal its projects -->
+  <div class="topic-grid" id="topicGrid">
+
+    <button class="topic-card" data-topic="ai-dl" type="button">
+      <div class="topic-top">
+        <span class="topic-count">3 projects</span>
+      </div>
+      <div class="topic-name">AI &amp; Deep Learning / LLMs</div>
+      <p class="topic-desc">Neural nets, transformers, and autograd from scratch.</p>
+      <span class="topic-cta">View projects</span>
+    </button>
+
+    <button class="topic-card" data-topic="agents" type="button">
+      <div class="topic-top">
+        <span class="topic-count">3 projects</span>
+      </div>
+      <div class="topic-name">AI Agents</div>
+      <p class="topic-desc">Search, reinforcement learning, and probabilistic agents.</p>
+      <span class="topic-cta">View projects</span>
+    </button>
+
+    <button class="topic-card" data-topic="systems" type="button">
+      <div class="topic-top">
+        <span class="topic-count">4 projects</span>
+      </div>
+      <div class="topic-name">Operating Systems &amp; Security</div>
+      <p class="topic-desc">Kernels, memory, shell, and binary exploitation.</p>
+      <span class="topic-cta">View projects</span>
+    </button>
+
+    <button class="topic-card" data-topic="networking" type="button">
+      <div class="topic-top">
+        <span class="topic-count">5 projects</span>
+      </div>
+      <div class="topic-name">Networking &amp; Distributed Systems</div>
+      <p class="topic-desc">TCP, routing, HTTP server, and MapReduce.</p>
+      <span class="topic-cta">View projects</span>
+    </button>
+
+    <button class="topic-card" data-topic="games" type="button">
+      <div class="topic-top">
+        <span class="topic-count">2 projects</span>
+      </div>
+      <div class="topic-name">Games &amp; Simulation</div>
+      <p class="topic-desc">Game engines and procedural world generation.</p>
+      <span class="topic-cta">View projects</span>
+    </button>
+
+    <button class="topic-card" data-topic="data" type="button">
+      <div class="topic-top">
+        <span class="topic-count">3 projects</span>
+      </div>
+      <div class="topic-name">Data &amp; Analytics</div>
+      <p class="topic-desc">EDA and ML classifiers on real-world datasets.</p>
+      <span class="topic-cta">View projects</span>
+    </button>
+
+    <button class="topic-card" data-topic="databases" type="button">
+      <div class="topic-top">
+        <span class="topic-count">2 projects</span>
+      </div>
+      <div class="topic-name">Databases</div>
+      <p class="topic-desc">Locking, transactions, and crash recovery.</p>
+      <span class="topic-cta">View projects</span>
+    </button>
+
+    <button class="topic-card" data-topic="personal" type="button">
+      <div class="topic-top">
+        <span class="topic-count">2 projects</span>
+      </div>
+      <div class="topic-name">Personal Projects</div>
+      <p class="topic-desc">Side projects for personal use only, and handy tools I have needed for my daily life.</p>
+      <span class="topic-cta">View projects</span>
+    </button>
+
+  </div>
+
+  <!-- PANEL: AI & Deep Learning -->
+  <div class="topic-panel" data-panel="ai-dl" hidden>
+    <div class="panel-top">
+      <button class="back-btn" type="button">Projects</button>
+      <h3 class="panel-title">AI &amp; Deep Learning / LLMs</h3>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/neural-nets.png');"><span class="thumb-label">screenshot: <span>neural-nets.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Perceptrons to Transformers</div>
+          <span class="lang-badge lang-torch">PyTorch</span>
+        </div>
+        <p class="project-desc">
+          A progression of neural architectures from first principles: a binary perceptron,
+          fully-connected nets for MNIST, a custom RNN for language classification, 2D
+          convolutions, and a scaled dot-product attention GPT that generates Shakespearean text.
+        </p>
+        <div class="project-tags">
+          <span class="tag">CNNs</span>
+          <span class="tag">RNNs</span>
+          <span class="tag">Attention</span>        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image media-toggle">
+          <img class="thumb-media active" src="image/projects/deep-learning1.png" alt="Deep Learning & Fine-Tuning screenshot 1">
+          <img class="thumb-media" src="image/projects/deep-learning2.png" alt="Deep Learning & Fine-Tuning screenshot 2">
+          <img class="thumb-media" src="image/projects/deep-learning3.png" alt="Deep Learning & Fine-Tuning screenshot 3">
+        </div>
+        <div class="project-top">
+          <div class="project-name">Deep Learning &amp; Fine-Tuning</div>
+          <span class="lang-badge lang-torch">PyTorch</span>
+        </div>
+        <p class="project-desc">
+          Fine-tuned DNABERT with a custom classification head to predict species from DNA k-mers, and adapted ImageNet-pretrained 
+          ConvNeXt to classify urban sounds by turning waveforms into spectrograms — comparing training from scratch, 
+          frozen-backbone transfer, and full fine-tuning.
+        </p>
+        <div class="project-tags">
+          <span class="tag">DNABERT</span>
+          <span class="tag">ConvNeXt</span>
+          <span class="tag">Transformers</span>
+          <span class="tag">ResNet</span>
+          <span class="tag">Transfer Learning</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/autodiff.png');"><span class="thumb-label">screenshot: <span>autodiff.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Autodifferentiation Engine</div>
+          <span class="lang-badge lang-python">NumPy</span>
+        </div>
+        <p class="project-desc">
+          A PyTorch-style autograd library: a Tensor class that builds a computation graph on
+          the forward pass, reverse-mode backprop via topological sort, and SGD/Momentum/Adam
+          optimizers — used to train a network on wine-quality regression.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Backprop</span>
+          <span class="tag">Computation Graph</span>
+          <span class="tag">Optimizers</span>        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PANEL: AI Agents & Reasoning -->
+  <div class="topic-panel" data-panel="agents" hidden>
+    <div class="panel-top">
+      <button class="back-btn" type="button">Projects</button>
+      <h3 class="panel-title">AI Agents &amp; Reasoning</h3>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-thumb has-image media-toggle">
+          <img class="thumb-media active" src="image/projects/pacman-ai.png" alt="Pacman Search & Adversarial AI screenshot">
+          <video class="thumb-media" src="image/projects/pacman-ai.mp4" muted loop playsinline preload="metadata"></video>
+          <video class="thumb-media" src="image/projects/pacman-ai1.mp4" muted loop playsinline preload="metadata"></video>
+
+        </div>
+        <div class="project-top">
+          <div class="project-name">Pacman Search &amp; Adversarial AI</div>
+          <span class="lang-badge lang-python">Python</span>
+        </div>
+        <p class="project-desc">
+          Search agents (DFS, BFS, UCS, A* with admissible heuristics) for maze pathfinding,
+          extended into adversarial play with Minimax, Alpha-Beta pruning, and Expectimax over
+          game trees against ghosts.
+          <span class="project-desc-media">First video is the search agents, second video is the adversarial AI.</span>
+        </p>
+        <div class="project-tags">
+          <span class="tag">A* Search</span>
+          <span class="tag">Minimax</span>
+          <span class="tag">Alpha-Beta</span>        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image media-toggle">
+          <img class="thumb-media active" src="image/projects/rl-agents.png" alt="Reinforcement Learning Agents screenshot">
+          <video class="thumb-media" src="image/projects/rl-agents.mp4" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="project-top">
+          <div class="project-name">Reinforcement Learning Agents</div>
+          <span class="lang-badge lang-python">Python</span>
+        </div>
+        <p class="project-desc">
+          Planning and learning agents for Gridworld, a robotic crawler, and Pacman using
+          Markov Decision Processes, value iteration, and Q-learning — with epsilon-greedy
+          exploration and feature-based approximate Q-learning for scale.
+          <span class="project-desc-media">First image is the idea behind the project, second video is the Pacman agent learning to eat all the dots while avoiding the ghosts.</span>
+        </p>
+        <div class="project-tags">
+          <span class="tag">MDPs</span>
+          <span class="tag">Q-Learning</span>
+          <span class="tag">Value Iteration</span>        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image media-toggle">
+          <img class="thumb-media active" src="image/projects/ghost-tracking.png" alt="Bayesian Ghost Tracking screenshot">
+          <img class="thumb-media" src="image/projects/ghost-tracking1.png" alt="Bayesian Ghost Tracking screenshot">
+          <video class="thumb-media" src="image/projects/ghost-tracking.mp4" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="project-top">
+          <div class="project-name">Bayesian Ghost Tracking</div>
+          <span class="lang-badge lang-python">Python</span>
+        </div>
+        <p class="project-desc">
+          A probabilistic tracking system that locates invisible ghosts from noisy sensors:
+          Bayes-net inference with variable elimination, then time-series tracking via Hidden
+          Markov Models and particle filtering, driving a greedy pursuit agent.
+          <span class="project-desc-media">First image is the idea behind the project, second image is the Bayesian network, third video is the ghost tracking agent.</span>
+        </p>
+        <div class="project-tags">
+          <span class="tag">Bayes Nets</span>
+          <span class="tag">HMMs</span>
+          <span class="tag">Particle Filter</span>        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PANEL: Operating Systems & Security -->
+  <div class="topic-panel" data-panel="systems" hidden>
+    <div class="panel-top">
+      <button class="back-btn" type="button">Projects</button>
+      <h3 class="panel-title">Operating Systems &amp; Security</h3>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/pintos.png');"><span class="thumb-label">screenshot: <span>pintos.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Pintos Operating System</div>
+          <span class="lang-badge lang-c">C</span>
+        </div>
+        <p class="project-desc">
+          Developed a real, working kernel and extended an instructional x86 kernel across three subsystems: a priority/MLFQS
+          thread scheduler with priority donation, user-program loading with a validated
+          syscall interface, and a redesigned file system with extensible files and a buffer cache.
+        </p>
+        <div class="project-tags">
+          <span class="tag lang-asm">x86</span>
+          <span class="tag">Scheduling</span>
+          <span class="tag">Syscalls</span>
+          <span class="tag">Concurrency</span>        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/shell.png');"><span class="thumb-label">screenshot: <span>shell.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Unix Shell</div>
+          <span class="lang-badge lang-c">C</span>
+        </div>
+        <p class="project-desc">
+          A shell replicating core <code>bash</code> functionality — path resolution, child-process
+          spawning, I/O redirection, multi-stage pipelines, and POSIX signal handling for
+          job control and foreground/background execution.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Processes</span>
+          <span class="tag">Signals</span>
+          <span class="tag">Pipes</span>        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/allocator.png');"><span class="thumb-label">screenshot: <span>allocator.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Kernel Heap &amp; Allocator</div>
+          <span class="lang-badge lang-c">C</span>
+        </div>
+        <p class="project-desc">
+          Added dynamic memory to Pintos: an <code>sbrk</code> syscall that maps physical pages into
+          a process's address space, plus a user-space first-fit <code>malloc</code>/<code>free</code>/<code>realloc</code>
+          with block splitting and free-block coalescing.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Virtual Memory</span>
+          <span class="tag">malloc</span>
+          <span class="tag">Free Lists</span>        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/exploits.png');"><span class="thumb-label">screenshot: <span>exploits.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Memory Safety Exploitation</div>
+          <span class="lang-badge lang-c">C</span>
+        </div>
+        <p class="project-desc">
+          Working exploits for intentionally vulnerable C programs: hijacking the return
+          instruction pointer to run injected shellcode and stack canaries, ASLR,
+          and non-executable memory via return-oriented programming.
+        </p>
+        <div class="project-tags">
+          <span class="tag lang-asm">x86</span>
+          <span class="tag">Buffer Overflow</span>
+          <span class="tag">ROP</span>
+          <span class="tag">GDB</span>        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PANEL: Networking & Distributed Systems -->
+  <div class="topic-panel" data-panel="networking" hidden>
+    <div class="panel-top">
+      <button class="back-btn" type="button">Projects</button>
+      <h3 class="panel-title">Networking &amp; Distributed Systems</h3>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/http-server.png');"><span class="thumb-label">screenshot: <span>http-server.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Multithreaded HTTP Server</div>
+          <span class="lang-badge lang-rust">Rust</span>
+        </div>
+        <p class="project-desc">
+          An HTTP/1.0 server on raw TCP sockets using the Tokio async runtime, with
+          bounded-memory streaming file transfer, directory listing, and a thread-safe
+          live <code>/stats</code> endpoint backed by <code>Arc</code>/<code>RwLock</code>.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Async I/O</span>
+          <span class="tag">Tokio</span>
+          <span class="tag">TCP</span>        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/mapreduce.png');"><span class="thumb-label">screenshot: <span>mapreduce.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Distributed MapReduce</div>
+          <span class="lang-badge lang-rust">Rust</span>
+        </div>
+        <p class="project-desc">
+          A fault-tolerant MapReduce framework modeled on Google's paper: a coordinator
+          distributes tasks to workers over gRPC, with heartbeat-based failure detection,
+          automatic task re-execution, and job-level error propagation to clients.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Distributed Systems</span>
+          <span class="tag">gRPC</span>
+          <span class="tag">Fault Tolerance</span>        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image media-toggle">
+          <img class="thumb-media active" src="image/projects/tcp.png" alt="TCP Transport Protocol diagram">
+          <video class="thumb-media" src="image/projects/tcp.mp4" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="project-top">
+          <div class="project-name">TCP Transport Protocol</div>
+          <span class="lang-badge lang-python">Python</span>
+        </div>
+        <p class="project-desc">
+          A reliable TCP implementation from scratch: a full state machine with three-way
+          handshake, sliding-window flow control, out-of-order reassembly, retransmission
+          queues, and RFC 6298 adaptive timeout estimation.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Sliding Window</span>
+          <span class="tag">State Machine</span>
+          <span class="tag">RFC 6298</span>        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image media-toggle">
+          <img class="thumb-media active" src="image/projects/routing.png" alt="Distance-Vector Routing screenshot">
+          <video class="thumb-media" src="image/projects/routing.mp4" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="project-top">
+          <div class="project-name">Distance-Vector Routing</div>
+          <span class="lang-badge lang-python">Python</span>
+        </div>
+        <p class="project-desc">
+          A distributed routing protocol using Bellman-Ford to compute shortest paths, with
+          route advertisement, timeout handling, and loop-prevention optimizations: split
+          horizon, poison reverse, and count-to-infinity mitigation.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Bellman-Ford</span>
+          <span class="tag">Split Horizon</span>
+          <span class="tag">Convergence</span>        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/traceroute.png');"><span class="thumb-label">screenshot: <span>traceroute.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Traceroute Utility</div>
+          <span class="lang-badge lang-python">Python</span>
+        </div>
+        <p class="project-desc">
+          A traceroute tool built on low-level IPv4, UDP, and ICMP: binary packet parsing,
+          TTL-based probing to reveal intermediate routers, and robust handling of packet
+          loss, duplicates, and delayed responses.
+        </p>
+        <div class="project-tags">
+          <span class="tag">ICMP</span>
+          <span class="tag">Sockets</span>
+          <span class="tag">Packet Parsing</span>        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PANEL: Games & Simulation -->
+  <div class="topic-panel" data-panel="games" hidden>
+    <div class="panel-top">
+      <button class="back-btn" type="button">Projects</button>
+      <h3 class="panel-title">Games &amp; Simulation</h3>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-thumb has-image media-toggle">
+          <img class="thumb-media active" src="image/projects/ants.png" alt="Ants vs. SomeBees screenshot">
+          <video class="thumb-media" src="image/projects/ants.mp4" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="project-top">
+          <div class="project-name">Ants vs. SomeBees</div>
+          <span class="lang-badge lang-python">Python</span>
+        </div>
+        <p class="project-desc">
+          A tower-defense game inspired by Plants vs. Zombies, ants defend their colony
+          from invading bees across a tunnel-based battlefield. Built on object-oriented
+          design with a hierarchy of game entities using inheritance and polymorphism,
+          turn-based simulation, resource management, and combat interactions.
+          <span class="project-desc-media">Image above shows the game and its gameplay.</span>
+        </p>
+        <div class="project-tags">
+          <span class="tag">OOP</span>
+          <span class="tag">Inheritance</span>
+          <span class="tag">Simulation</span>        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image media-toggle">
+          <img class="thumb-media active" src="image/projects/byow-1.png" alt="Build Your Own World screenshot 1">
+          <img class="thumb-media" src="image/projects/byow-2.png" alt="Build Your Own World screenshot 2">
+          <video class="thumb-media" src="image/projects/byow.mp4" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="project-top">
+          <div class="project-name">Build Your Own World</div>
+          <span class="lang-badge lang-java">Java</span>
+        </div>
+        <p class="project-desc">
+          A procedural 2D world-exploration engine with deterministic map generation from
+          random seeds, a tile-based rendering engine, avatar movement, collision detection,
+          and persistent save/load.
+          <span class="project-desc-media">Images above show the game and its gameplay.</span>
+        </p>
+        <div class="project-tags">
+          <span class="tag">Procedural Gen</span>
+          <span class="tag">Game Engine</span>
+          <span class="tag">Persistence</span>        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PANEL: Data & Analytics -->
+  <div class="topic-panel" data-panel="data" hidden>
+    <div class="panel-top">
+      <button class="back-btn" type="button">Projects</button>
+      <h3 class="panel-title">Data &amp; Analytics</h3>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image:url('image/projects/poverty-map.png')"><span class="thumb-label">screenshot: <span>poverty-map.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Global Poverty Analysis</div>
+          <span class="lang-badge lang-python">Python</span>
+        </div>
+        <p class="project-desc">
+          Analysis of extreme poverty using Gapminder data across 200 countries: joined
+          poverty rates with population data to build a world map of where 600M+ people
+          in extreme poverty live, plus per-country timelines showing the massive declines
+          in China and India behind the global downward trend.
+          <span class="project-desc-media">Image above shows China.</span>
+        </p>
+        <div class="project-tags">
+          <span class="tag">EDA</span>
+          <span class="tag">Data Visualization</span>
+          <span class="tag">Geospatial Mapping</span>
+          <span class="tag">NumPy</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/climate-change.png');"><span class="thumb-label">screenshot: <span>climate-change.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Climate Change Analysis</div>
+          <span class="lang-badge lang-python">Python</span>
+        </div>
+        <p class="project-desc">
+          Statistical inference on 120 years of daily weather records from 210 U.S. cities
+          using bootstrap confidence intervals showing significant warming in Phoenix for 9 of 12
+          months, and a permutation A/B test confirming Southwest drought years are
+          measurably drier (p &lt; 0.05).
+          <span class="project-desc-media">Image above shows Phoenix temperature trend.</span>
+        </p>
+        <div class="project-tags">
+          <span class="tag">Hypothesis Testing</span>
+          <span class="tag">Bootstrap CIs</span>
+          <span class="tag">A/B Testing</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/movie-classifier.png');"><span class="thumb-label">screenshot: <span>movie-classifier.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Movie Genre Classifier</div>
+          <span class="lang-badge lang-python">Python</span>
+        </div>
+        <p class="project-desc">
+          A k-nearest-neighbors classifier that predicts comedy vs. thriller from screenplay
+          text, using bag-of-words features over 5,000 words: feature selection narrowed
+          the vocabulary to 5 genre-distinctive words while raising held-out accuracy
+          from 76% to 81%.
+        </p>
+        <div class="project-tags">
+          <span class="tag">kNN</span>
+          <span class="tag">NLP / Bag-of-Words</span>
+          <span class="tag">Feature Selection</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PANEL: Databases -->
+  <div class="topic-panel" data-panel="databases" hidden>
+    <div class="panel-top">
+      <button class="back-btn" type="button">Projects</button>
+      <h3 class="panel-title">Databases</h3>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/concurrency-control.png');"><span class="thumb-label">screenshot: <span>concurrency-control.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Concurrency Control</div>
+          <span class="lang-badge lang-cpp">Java</span>
+        </div>
+        <p class="project-desc">
+          Implemented a lock manager supporting queued lock acquisition and release and
+          multigranularity locking (database → table → page → record) with intent locks
+          (IS/IX/SIX) and lock escalation, enabling safe concurrent execution of multiple
+          transactions while preventing conflicting access.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Lock Manager</span>
+          <span class="tag">Multigranularity Locking</span>
+          <span class="tag">Intent Locks</span>
+          <span class="tag">Lock Escalation</span>
+          <span class="tag">Transactions</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/recovery.png');"><span class="thumb-label">screenshot: <span>recovery.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">Recovery</div>
+          <span class="lang-badge lang-cpp">Java</span>
+        </div>
+        <p class="project-desc">
+          Implemented ARIES-style write-ahead logging and crash recovery, including the
+          analysis, redo, and undo phases, to guarantee atomicity and durability of
+          transactions after a system crash.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Write-Ahead Logging</span>
+          <span class="tag">ARIES</span>
+          <span class="tag">Crash Recovery</span>
+          <span class="tag">ACID</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PANEL: Personal Projects -->
+  <div class="topic-panel" data-panel="personal" hidden>
+    <div class="panel-top">
+      <button class="back-btn" type="button">Projects</button>
+      <h3 class="panel-title">Personal Projects</h3>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-thumb has-image media-toggle">
+          <img class="thumb-media active" src="image/projects/Streaming-Browser.png" alt="Streaming Browser screenshot">
+          <img class="thumb-media" src="image/projects/Streaming-Browser1.png" alt="Streaming Browser screenshot 2">
+          <video class="thumb-media" src="image/projects/Streaming-Browser.mp4" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="project-top">
+          <div class="project-name">Streaming Browser</div>
+          <span class="lang-badge lang-swift">SwiftUI</span>
+        </div>
+        <div class="project-desc">
+          <p class="project-desc-lead">
+            A streaming browser for iOS, iPadOS, and macOS — built in SwiftUI
+            with MVVM to browse, search, and play movies and series.
+          </p>
+          <ul class="project-desc-list">
+            <li>TMDb-powered discovery: hero carousel, trending rows, debounced search, and title pages with cast and ratings</li>
+            <li>Resilient playback via WKWebView embed providers with automatic fallback, in-player switching, and resume support</li>
+            <li>Alternate AVPlayer path for direct stream URLs when available</li>
+            <li>Structured logging across API, playback, and image layers: TMDb HTTP status and endpoint context when requests fail or rate-limit; active provider, stream URL, and WKWebView/AVPlayer state when embeds crash or fallback triggers</li>
+            <li>Poster, backdrop, and cast-avatar load logging tracks URL resolution, fetch failures, and empty decode results to trace broken carousel and title-page artwork</li>
+            <li>Local watchlist, favorites, and per-episode progress persisted with UserDefaults</li>
+            <li>Mac Catalyst player: resizable windows, float-on-top, and keyboard shortcuts</li>
+            <li>GitHub Actions CI running unit tests on every push</li>
+          </ul>
+        </div>
+        <div class="project-tags">
+          <span class="tag">MVVM</span>
+          <span class="tag">Mac Catalyst</span>
+          <span class="tag">TMDb API</span>
+          <span class="tag">WKWebView</span>
+          <span class="tag">AVPlayer</span>
+          <span class="tag">Multi-Provider Fallback</span>
+          <span class="tag">UserDefaults</span>
+          <span class="tag">GitHub Actions</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb has-image media-toggle">
+          <img class="thumb-media active" src="image/projects/capvid.png" alt="CapVid screenshot 1">
+          <img class="thumb-media" src="image/projects/capvid1.png" alt="CapVid screenshot 2">
+          <video class="thumb-media" src="image/projects/capvid.mp4" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="project-top">
+          <div class="project-name">CapVid</div>
+          <span class="lang-badge lang-swift">SwiftUI</span>
+        </div>
+        <div class="project-desc">
+          <p class="project-desc-lead">
+            A macOS app for adding captions to videos — transcribe speech, clean up
+            the results, style the text, and export a captioned video plus a separate caption file.
+          </p>
+          <ul class="project-desc-list">
+            <li>End-to-end pipeline design: video import → on-device speech transcription → editable caption review → font/size styling → dual export (burned-in video + standalone caption file)</li>
+            <li>CaptionTimeline sanitization engine corrects noisy ML output: overlapping segments, timestamps past playable duration, end-of-timeline pile-up, and unreadably short captions via bounded iterative overlap resolution with configurable tolerances</li>
+            <li>Composition-duration logic reconciles asset, video-track, and audio-track lengths into one safe export timeline, preventing caption/media desync</li>
+            <li>Library/app split: testable core package isolated from UI, with unit-tested interval logic via swift build and swift test; demo UI ships the sanitization foundation while import, transcription, and export are in active development</li>
+          </ul>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Swift Package Manager</span>
+          <span class="tag">AVFoundation</span>
+          <span class="tag">Speech-to-Text</span>
+          <span class="tag">Timeline Sanitization</span>
+          <span class="tag">On-Device ML</span>
+          <span class="tag">Unit Testing</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>~/joseph-rojas</span>
+  <span id="footer-time"></span>
+</footer>
+
+<script>
+  /* Typewriter */
+  const words = ['operating systems', 'network protocols', 'ML from scratch', 'distributed systems', 'clean algorithms'];
+  let wi = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typewriter');
+
+  function type() {
+    const word = words[wi];
+    if (!deleting) {
+      el.textContent = word.slice(0, ++ci);
+      if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+      setTimeout(type, 90);
+    } else {
+      el.textContent = word.slice(0, --ci);
+      if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; setTimeout(type, 300); return; }
+      setTimeout(type, 45);
+    }
+  }
+  type();
+
+  /* Footer clock */
+  function tick() {
+    document.getElementById('footer-time').textContent =
+      new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* Project topic browser: click a topic card to reveal its projects */
+  const topicGrid = document.getElementById('topicGrid');
+  const topicPanels = document.querySelectorAll('.topic-panel');
+  const projectsSection = document.getElementById('projects');
+
+  function showTopic(topic) {
+    topicGrid.hidden = true;
+    topicPanels.forEach(p => { p.hidden = p.dataset.panel !== topic; });
+    projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function showAllTopics() {
+    topicPanels.forEach(p => { p.hidden = true; });
+    topicGrid.hidden = false;
+    projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.querySelectorAll('.topic-card').forEach(card => {
+    card.addEventListener('click', () => showTopic(card.dataset.topic));
+  });
+
+  document.querySelectorAll('.back-btn').forEach(btn => {
+    btn.addEventListener('click', showAllTopics);
+  });
+
+  /* Project media: arrow carousel + video timeline + enlarge lightbox.
+     Controls are injected for current and future .media-toggle thumbs. */
+  const lightbox = document.createElement('div');
+  lightbox.className = 'media-lightbox';
+  lightbox.setAttribute('role', 'dialog');
+  lightbox.setAttribute('aria-modal', 'true');
+  lightbox.setAttribute('aria-label', 'Enlarged project media');
+  lightbox.innerHTML =
+    '<div class="media-lightbox-inner">' +
+      '<div class="media-lightbox-stage"></div>' +
+      '<span class="media-lightbox-hint">Click outside to close</span>' +
+    '</div>';
+  document.body.appendChild(lightbox);
+
+  const lightboxInner = lightbox.querySelector('.media-lightbox-inner');
+  const lightboxStage = lightbox.querySelector('.media-lightbox-stage');
+  let lightboxSource = null;
+
+  function bgImageUrl(el) {
+    const raw = getComputedStyle(el).backgroundImage;
+    const match = raw && raw !== 'none' ? raw.match(/url\(["']?(.+?)["']?\)/) : null;
+    return match ? match[1] : '';
+  }
+
+  function formatMediaTime(sec) {
+    if (!Number.isFinite(sec) || sec < 0) return '0:00';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return m + ':' + String(s).padStart(2, '0');
+  }
+
+  function syncThumbAspect(thumb) {
+    const active = thumb.querySelector('.thumb-media.active');
+    if (!active) return;
+
+    const apply = (w, h) => {
+      if (!w || !h) return;
+      let ratio = w / h;
+      const minRatio = 9 / 16;
+      const maxRatio = 16 / 9;
+      ratio = Math.min(maxRatio, Math.max(minRatio, ratio));
+      thumb.style.aspectRatio = String(ratio);
+    };
+
+    if (active.tagName === 'IMG') {
+      if (active.complete && active.naturalWidth) apply(active.naturalWidth, active.naturalHeight);
+      else active.addEventListener('load', () => apply(active.naturalWidth, active.naturalHeight), { once: true });
+    } else if (active.tagName === 'VIDEO') {
+      if (active.videoWidth) apply(active.videoWidth, active.videoHeight);
+      else active.addEventListener('loadedmetadata', () => apply(active.videoWidth, active.videoHeight), { once: true });
+    }
+  }
+
+  function mediaFrame(thumb) {
+    return thumb.closest('.media-frame');
+  }
+
+  function syncVideoProgress(thumb, video) {
+    const root = mediaFrame(thumb) || thumb;
+    const fill = root.querySelector('.video-progress-fill');
+    const timeEl = root.querySelector('.video-progress-time');
+    if (!fill || !timeEl) return;
+    const dur = video.duration || 0;
+    const cur = video.currentTime || 0;
+    fill.style.width = (dur ? (cur / dur) * 100 : 0) + '%';
+    timeEl.textContent = formatMediaTime(cur) + ' / ' + formatMediaTime(dur);
+  }
+
+  function updateSlideIndicator(thumb) {
+    const media = [...thumb.querySelectorAll('.thumb-media')];
+    const frame = mediaFrame(thumb);
+    const indicator = frame
+      ? frame.querySelector('.media-slide-indicator')
+      : thumb.querySelector('.media-slide-indicator');
+    if (!indicator || media.length < 2) return;
+    const activeIdx = media.findIndex(m => m.classList.contains('active'));
+    indicator.textContent = (activeIdx + 1) + ' / ' + media.length;
+  }
+
+  function showMediaAt(thumb, idx) {
+    const media = [...thumb.querySelectorAll('.thumb-media')];
+    if (!media.length) return;
+    const next = ((idx % media.length) + media.length) % media.length;
+    media.forEach((m, i) => {
+      const on = i === next;
+      m.classList.toggle('active', on);
+      if (m.tagName === 'VIDEO') {
+        if (on) {
+          m.play().catch(() => {});
+          syncVideoProgress(thumb, m);
+        } else {
+          m.pause();
+        }
+      }
+    });
+    const showingVideo = media[next].tagName === 'VIDEO';
+    const frame = mediaFrame(thumb);
+    if (frame) frame.classList.toggle('showing-video', showingVideo);
+    else thumb.classList.toggle('showing-video', showingVideo);
+    updateSlideIndicator(thumb);
+    syncThumbAspect(thumb);
+  }
+
+  function wireVideoProgress(thumb, video) {
+    const root = mediaFrame(thumb) || thumb;
+    const track = root.querySelector('.video-progress-track');
+    if (!track || video.dataset.progressWired) return;
+    video.dataset.progressWired = '1';
+
+    if (!track.dataset.wired) {
+      track.dataset.wired = '1';
+
+      const activeVideo = () => thumb.querySelector('video.thumb-media.active');
+
+      const seekFromEvent = (e) => {
+        const current = activeVideo();
+        if (!current || !current.duration) return;
+        const rect = track.getBoundingClientRect();
+        const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+        current.currentTime = ratio * current.duration;
+        syncVideoProgress(thumb, current);
+      };
+
+      track.addEventListener('click', (e) => {
+        e.stopPropagation();
+        seekFromEvent(e);
+      });
+
+      track.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        track.setPointerCapture(e.pointerId);
+        seekFromEvent(e);
+        const onMove = (ev) => seekFromEvent(ev);
+        const onUp = () => {
+          track.releasePointerCapture(e.pointerId);
+          track.removeEventListener('pointermove', onMove);
+          track.removeEventListener('pointerup', onUp);
+        };
+        track.addEventListener('pointermove', onMove);
+        track.addEventListener('pointerup', onUp);
+      });
+    }
+
+    video.addEventListener('timeupdate', () => {
+      if (video.classList.contains('active')) syncVideoProgress(thumb, video);
+    });
+    video.addEventListener('loadedmetadata', () => {
+      if (video.classList.contains('active')) syncVideoProgress(thumb, video);
+    });
+    video.addEventListener('durationchange', () => {
+      if (video.classList.contains('active')) syncVideoProgress(thumb, video);
+    });
+  }
+
+  function enhanceMediaToggle(thumb) {
+    if (thumb.dataset.enhanced) return;
+    const media = thumb.querySelectorAll('.thumb-media');
+    if (media.length < 2) return;
+    thumb.dataset.enhanced = '1';
+
+    const frame = document.createElement('div');
+    frame.className = 'media-frame';
+
+    const meta = document.createElement('div');
+    meta.className = 'media-frame-meta';
+
+    if (thumb.querySelector('video')) {
+      const badge = document.createElement('span');
+      badge.className = 'media-video-badge';
+      badge.textContent = 'Includes video';
+      meta.appendChild(badge);
+    }
+
+    const indicator = document.createElement('span');
+    indicator.className = 'media-slide-indicator';
+    indicator.setAttribute('aria-live', 'polite');
+    meta.appendChild(indicator);
+
+    const body = document.createElement('div');
+    body.className = 'media-frame-body';
+
+    const prev = document.createElement('button');
+    prev.type = 'button';
+    prev.className = 'media-nav media-prev';
+    prev.setAttribute('aria-label', 'Previous media');
+    prev.innerHTML = '‹';
+
+    const next = document.createElement('button');
+    next.type = 'button';
+    next.className = 'media-nav media-next';
+    next.setAttribute('aria-label', 'Next media');
+    next.innerHTML = '›';
+
+    const footer = document.createElement('div');
+    footer.className = 'media-frame-footer';
+
+    const hint = document.createElement('span');
+    hint.className = 'media-carousel-hint';
+    hint.textContent = thumb.querySelector('video')
+      ? 'Use ‹ › for images & video'
+      : 'Use ‹ › to browse';
+    footer.appendChild(hint);
+
+    const videos = thumb.querySelectorAll('video.thumb-media');
+    if (videos.length) {
+      const progress = document.createElement('div');
+      progress.className = 'video-progress';
+      progress.innerHTML =
+        '<div class="video-progress-track" role="slider" aria-label="Video progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">' +
+          '<div class="video-progress-fill"></div>' +
+        '</div>' +
+        '<span class="video-progress-time">0:00 / 0:00</span>';
+      footer.appendChild(progress);
+      videos.forEach(v => wireVideoProgress(thumb, v));
+    }
+
+    thumb.parentNode.insertBefore(frame, thumb);
+    body.append(prev, thumb, next);
+    frame.append(meta, body, footer);
+
+    media.forEach(m => {
+      if (m.tagName === 'IMG') {
+        m.addEventListener('load', () => {
+          if (m.classList.contains('active')) syncThumbAspect(thumb);
+        });
+      } else if (m.tagName === 'VIDEO') {
+        m.addEventListener('loadedmetadata', () => {
+          if (m.classList.contains('active')) syncThumbAspect(thumb);
+        });
+      }
+    });
+
+    const activeIdx = [...media].findIndex(m => m.classList.contains('active'));
+    showMediaAt(thumb, activeIdx >= 0 ? activeIdx : 0);
+  }
+
+  function enhanceAllMediaToggles(root) {
+    (root || projectsSection).querySelectorAll('.media-toggle').forEach(enhanceMediaToggle);
+  }
+
+  enhanceAllMediaToggles();
+
+  /* If future media-toggle cards are injected into #projects, enhance them too */
+  if (typeof MutationObserver !== 'undefined') {
+    new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        m.addedNodes.forEach((node) => {
+          if (node.nodeType !== 1) return;
+          if (node.matches?.('.media-toggle')) enhanceMediaToggle(node);
+          else if (node.querySelectorAll) enhanceAllMediaToggles(node);
+        });
+      }
+    }).observe(projectsSection, { childList: true, subtree: true });
+  }
+
+  function closeMediaLightbox() {
+    if (!lightbox.classList.contains('open')) return;
+    const playing = lightboxStage.querySelector('video');
+    if (playing && lightboxSource && lightboxSource.tagName === 'VIDEO') {
+      try { lightboxSource.currentTime = playing.currentTime; } catch (_) {}
+      if (!playing.paused) lightboxSource.play().catch(() => {});
+      const thumb = lightboxSource.closest('.media-toggle');
+      if (thumb) syncVideoProgress(thumb, lightboxSource);
+    }
+    lightbox.classList.remove('open');
+    document.body.classList.remove('lightbox-open');
+    lightboxStage.replaceChildren();
+    lightboxSource = null;
+  }
+
+  function openMediaLightbox(source) {
+    lightboxSource = source && source.tagName ? source : null;
+    lightboxStage.replaceChildren();
+
+    let clone;
+    if (source && source.tagName === 'VIDEO') {
+      clone = document.createElement('video');
+      clone.src = source.currentSrc || source.src;
+      clone.controls = true;
+      clone.autoplay = true;
+      clone.loop = source.loop;
+      clone.muted = source.muted;
+      clone.playsInline = true;
+      try { clone.currentTime = source.currentTime; } catch (_) {}
+      source.pause();
+    } else {
+      const src = typeof source === 'string'
+        ? source
+        : (source.currentSrc || source.src || '');
+      if (!src) return;
+      clone = document.createElement('img');
+      clone.src = src;
+      clone.alt = (source && source.alt) || 'Project media';
+    }
+
+    lightboxStage.appendChild(clone);
+    lightbox.classList.add('open');
+    document.body.classList.add('lightbox-open');
+  }
+
+  projectsSection.addEventListener('click', (e) => {
+    const nav = e.target.closest('.media-nav');
+    if (nav) {
+      e.stopPropagation();
+      e.preventDefault();
+      const frame = nav.closest('.media-frame');
+      const thumb = frame?.querySelector('.project-thumb.media-toggle');
+      if (!thumb) return;
+      const media = [...thumb.querySelectorAll('.thumb-media')];
+      const cur = media.findIndex(m => m.classList.contains('active'));
+      const delta = nav.classList.contains('media-prev') ? -1 : 1;
+      showMediaAt(thumb, (cur < 0 ? 0 : cur) + delta);
+      return;
+    }
+
+    if (e.target.closest('.video-progress')) {
+      e.stopPropagation();
+      return;
+    }
+
+    const activeMedia = e.target.closest('.thumb-media.active');
+    if (activeMedia && projectsSection.contains(activeMedia)) {
+      openMediaLightbox(activeMedia);
+      return;
+    }
+
+    const thumb = e.target.closest('.project-thumb.has-image');
+    if (!thumb || !projectsSection.contains(thumb)) return;
+    if (thumb.classList.contains('media-toggle')) {
+      const active = thumb.querySelector('.thumb-media.active');
+      if (active) openMediaLightbox(active);
+      return;
+    }
+    const url = bgImageUrl(thumb);
+    if (url) openMediaLightbox(url);
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (!lightboxInner.contains(e.target)) closeMediaLightbox();
+  });
+
+  lightboxInner.addEventListener('click', (e) => {
+    if (e.target === lightboxInner || e.target.classList.contains('media-lightbox-hint')) {
+      closeMediaLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMediaLightbox();
+  });
+
+</script>
+</body>
+</html>
