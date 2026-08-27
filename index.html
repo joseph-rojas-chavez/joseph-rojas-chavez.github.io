@@ -1670,10 +1670,10 @@
 
     <button class="topic-card" data-topic="personal" type="button">
       <div class="topic-top">
-        <span class="topic-count">2 projects</span>
+        <span class="topic-count">3 projects</span>
       </div>
       <div class="topic-name">Personal Projects</div>
-      <p class="topic-desc">Side projects for personal use only, and handy tools I have needed for my daily life.</p>
+      <p class="topic-desc">Side projects I built for myself, from daily tools to domain-specific systems.</p>
       <span class="topic-cta">View projects</span>
     </button>
 
@@ -2192,6 +2192,41 @@
       <h3 class="panel-title">Personal Projects</h3>
     </div>
     <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-thumb has-image" style="background-image: url('image/projects/hts-chapter-99.png');"><span class="thumb-label">screenshot: <span>hts-chapter-99.png</span></span></div>
+        <div class="project-top">
+          <div class="project-name">HTS Chapter 99</div>
+          <span class="lang-badge lang-python">Python</span>
+        </div>
+        <div class="project-desc">
+          <p class="project-desc-lead">
+            The U.S. Harmonized Tariff Schedule is the official list of taxes on imported goods:
+            chapters 1–97 name the product, chapter 99 is the overlay that changes the tax right now.
+            A 9902 line usually replaces the normal duty (often making it free); a 9903 line
+            usually adds extra tax, often by country of origin. I built a heading-card app that
+            shows one of those rules at a time, with the connections stored as a graph over a
+            saved copy of the official schedule.
+          </p>
+          <ul class="project-desc-list">
+            <li>Four independent Hatchet scrape tasks so a PDF timeout does not wipe JSON that already landed. Writes go through a temp file and <code>Path.replace()</code>; provenance is recorded, and re-runs overwrite in place instead of duplicating.</li>
+            <li>Chapter 99 is a graph, not a table of strings: rules store <code>rate_kind</code> + <code>rate_value</code> so “MFN + 25” is expressible, and edges capture references (99 → 1–97) and exclusions (99 → 99) without treating citations as foreign keys.</li>
+            <li>Regex over heading prose extracts provided-for citations, exclusion spans, and rate operators, prefix-matching 8-digit codes onto 10-digit lines without exploding short headings into thousands of children. PDF notes join a heading only when citation, subdivision, and heading number all appear in the body.</li>
+            <li>The app is a heading card over a materialized view — homepage teaches 9902-replace vs 9903-add — and never re-fetches. It reads the snapshot Parse loaded, including which USITC revision.</li>
+            <li>Rates are expressions, not display strings (free → 0, additive → base MFN + N). Annex tables still pollute note counts, and origin stacking is out of scope.</li>
+          </ul>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Hatchet</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Docker</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Bun</span>
+          <span class="tag">ETL</span>
+          <span class="tag">PDF Extraction</span>
+          <span class="tag">Domain Modeling</span>
+        </div>
+      </div>
 
       <div class="project-card">
         <div class="project-thumb has-image media-toggle">

@@ -68,6 +68,11 @@ Networking
 - `routing.mp4` — Distance-Vector Routing demo clip (arrow-toggle with the screenshot)
 - `traceroute.png` — Traceroute Utility (CS 168)
 
+Personal Projects
+- `hts-chapter-99.png` — HTS Chapter 99 (placeholder until a screenshot is dropped)
+- `Streaming-Browser.png`, `Streaming-Browser1.png`, `Streaming-Browser.mp4` — Streaming Browser
+- `capvid.png`, `capvid1.png`, `capvid.mp4` — CapVid
+
 AI & Machine Learning
 - `pacman-ai.png` — Pacman Search & Adversarial AI (CS 188)
 - `pacman-ai.mp4` — Pacman Search & Adversarial AI gameplay clip (arrow-toggle with the screenshot)
