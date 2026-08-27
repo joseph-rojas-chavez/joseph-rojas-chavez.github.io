@@ -69,7 +69,7 @@ Networking
 - `traceroute.png` — Traceroute Utility (CS 168)
 
 Personal Projects
-- `hts-chapter-99.png` — HTS Chapter 99 (placeholder until a screenshot is dropped)
+- `tax-code-graph.png` — Tax Code Graph
 - `Streaming-Browser.png`, `Streaming-Browser1.png`, `Streaming-Browser.mp4` — Streaming Browser
 - `capvid.png`, `capvid1.png`, `capvid.mp4` — CapVid
 
